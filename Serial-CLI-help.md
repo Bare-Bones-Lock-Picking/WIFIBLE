@@ -9,6 +9,7 @@ Commands are grouped into functional categories:
 |---------|---------|
 | **W**   | Wi‑Fi detection controls |
 | **B**   | BLE detection controls |
+| **A**   | Alert visibility controls |
 | **S**   | System controls |
 | **E**   | Echo mode |
 | **H**   | Help |
@@ -19,168 +20,118 @@ Separators are optional — the parser accepts:
 
 - spaces  
 - commas  
-- no separators at all  
-
-### Examples
-
-```
-W1 W2- B1
-W1,W2-,B3
-W1W2-B1S1
-```
-
-After processing a line, the device prints:
-
-```
-OK
-```
-
-Some commands (like `ST` or `H`) print a short one‑line response.
+- no separators at all
 
 ---
 
-## Wi‑Fi Commands (W)
+# System Status (`ST`)
+
+Displays a full snapshot of all system feature flags, alert settings, and runtime options.
+
+
+### WiFi Feature Flags
+- **BeaconFlood** – Detect excessive beacon frames  
+- **Spoofing** – Detect MAC spoofing attempts  
+- **Interval** – Detect abnormal beacon/probe intervals  
+- **VendorIE** – Detect malformed or suspicious vendor IEs  
+- **PurgeVerbose** – Show logs for purged WiFi devices  
+
+### BLE Feature Flags
+- **Spam** – Detect BLE advertisement spam  
+- **Rotation** – Detect rotating MAC patterns  
+- **Impersonation** – Detect BLE identity spoofing  
+- **PurgeVerbose** – Show logs for purged BLE devices  
+
+### Alert Flags
+- **INFO**  
+- **WARN**  
+- **CRITICAL**  
+- **ALL** – Master toggle for all alert levels  
+
+### System Flags
+- **DebugLogs** – Enable/disable verbose system logging  
+- **LEDs** – Master LED enable/disable  
+- **LED on Alerts** – Flash LED when alerts occur  
+- **EchoMode** – Echo CLI input back to the terminal  
+
+---
+
+# Help (`H`)
+
+Displays the full command reference.
+
+
+---
+
+# WiFi Commands
 
 | Command | Description |
-|---------|-------------|
-| `W1`  | Enable Wi‑Fi beacon flood detection |
-| `W1-` | Disable Wi‑Fi beacon flood detection |
-| `W2`  | Enable Wi‑Fi spoofing detection |
-| `W2-` | Disable Wi‑Fi spoofing detection |
-| `W3`  | Enable Wi‑Fi interval anomaly detection |
-| `W3-` | Disable Wi‑Fi interval anomaly detection |
-| `W4`  | Enable Wi‑Fi vendor IE anomaly detection |
-| `W4-` | Disable Wi‑Fi vendor IE anomaly detection |
-
-### Examples
-
-```
-W1 W2-       # Enable beacon flood, disable spoofing
-W1W2W3W4     # Enable all Wi‑Fi detection
-W1-W2-W3-W4- # Disable all Wi‑Fi detection
-```
+|--------|-------------|
+| `W1`   | Enable beacon‑flood detection |
+| `W1-`  | Disable beacon‑flood detection |
+| `W2`   | Enable spoofing detection |
+| `W2-`  | Disable spoofing detection |
+| `W3`   | Enable interval anomaly detection |
+| `W3-`  | Disable interval anomaly detection |
+| `W4`   | Enable vendor‑IE anomaly detection |
+| `W4-`  | Disable vendor‑IE anomaly detection |
+| `W5`   | Enable probe‑flood detection |
+| `W5-`  | Disable probe‑flood detection |
+| `W6`   | Enable null‑flood detection |
+| `W6-`  | Disable null‑flood detection |
+| `RW<n>` | Show raw WiFi payload history for device index n |
+| `CW`   | Clear WiFi raw‑packet history |
+| `LW`   | List WiFi devices |
+| `PW`   | Toggle verbose logging for purged WiFi devices |
 
 ---
 
-## BLE Commands (B)
+# BLE Commands
 
 | Command | Description |
-|---------|-------------|
-| `B1`  | Enable BLE spam detection |
-| `B1-` | Disable BLE spam detection |
-| `B2`  | Enable BLE rotation detection |
-| `B2-` | Disable BLE rotation detection |
-| `B3`  | Enable BLE impersonation detection |
-| `B3-` | Disable BLE impersonation detection |
-
-### Examples
-
-```
-B1- B2- B3-  # Disable all BLE detection
-B1B2B3       # Enable all BLE detection
-```
+|--------|-------------|
+| `B1`   | Enable BLE spam detection |
+| `B1-`  | Disable BLE spam detection |
+| `B2`   | Enable BLE rotation detection |
+| `B2-`  | Disable BLE rotation detection |
+| `B3`   | Enable BLE impersonation detection |
+| `B3-`  | Disable BLE impersonation detection |
+| `RB<n>` | Show raw BLE payload history for device index n |
+| `CB`   | Clear BLE raw‑packet history |
+| `LB`   | List BLE devices |
+| `PB`   | Toggle verbose logging for purged BLE devices |
 
 ---
 
-## System Commands (S)
+# Alert Commands
 
 | Command | Description |
-|---------|-------------|
-| `S1`  | Enable debug logs |
-| `S1-` | Disable debug logs |
-| `S2`  | Reboot the device |
-
-### Examples
-
-```
-S1 S2   # Enable debug logs and reboot
-S1-     # Disable debug logs
-```
+|--------|-------------|
+| `AI` | Toggle INFO alerts |
+| `AW` | Toggle WARN alerts |
+| `AC` | Toggle CRITICAL alerts |
+| `AA` | Toggle ALL alerts |
 
 ---
 
-## Status Command
-
-### `ST`
-
-Prints a compact one‑line summary of all Wi‑Fi, BLE, and system flags.
-
-**Example output**
-
-```
-W:1101 B:101 S:10
-```
-
-**Bit order**
-
-- **Wi‑Fi:** beacon flood, spoofing, interval anomalies, vendor IE  
-- **BLE:** spam, rotation, impersonation  
-- **System:** debug logs, LEDs (if used)
-
----
-
-## Help Command
-
-### `H`
-
-Prints a compact list of available commands:
-
-```
-W1/2/3/4, B1/2/3, S1/2, ST, E1
-```
-
----
-
-## Echo Mode (E)
+# System Commands
 
 | Command | Description |
-|---------|-------------|
-| `E1`  | Enable echo mode |
-| `E1-` | Disable echo mode |
-
-### Example
-
-Input:
-```
-E1
-W1 W2-
-```
-
-Output:
-```
-W1 W2-
-OK
-```
+|--------|-------------|
+| `S1`   | Enable debug logs |
+| `S1-`  | Disable debug logs |
+| `S2`   | Reboot device |
+| `E1`   | Enable echo mode |
+| `E1-`  | Disable echo mode |
 
 ---
 
-## Combining Commands
+# Information / Export Commands
 
-You can combine multiple commands in a single line.
+| Command | Description |
+|--------|-------------|
+| `ST` | Show system status |
+| `HF` | Show detailed feature‑flag help |
+| `JF` | Export all feature flags as JSON |
+| `LT` | Toggle LED‑on‑alerts mode |
 
-**With spaces**
-```
-W1 W2- B1 S1
-```
-
-**With commas**
-```
-W1,W2-,B1,S1
-```
-
-**With no separators**
-```
-W1W2-B1S1
-```
-
-All forms are valid.
-
----
-
-## Behavior and Safety Notes
-
-- The CLI is **non‑blocking** and safe to use with the TFT display.  
-- Commands are processed with **no dynamic memory allocation**.  
-- Unknown commands are ignored silently.  
-- After processing a line, the device prints `OK` unless a command prints its own response.  
-- The CLI does **not** interfere with Wi‑Fi/BLE sniffing or display updates.
