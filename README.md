@@ -2,7 +2,8 @@
 This project is a real‑time intelligence tool built on an ESP32 (CYD ESP32‑2432S028) that passively monitors Wi‑Fi and BLE activity, identifies devices, scores suspicious behavior, and presents the results on a touchscreen UI. Its also aimed to be available as 'headless' ESP32-C3
 
 WIFIBLE — ESP32 Wi‑Fi + BLE RF Intelligence Platform
-Overview
+
+# Overview
 WIFIBLE is a real‑time RF intelligence system built on the CYD ESP32‑2432S028 touchscreen board.
 It passively monitors Wi‑Fi and BLE activity, identifies devices, scores suspicious behavior, and presents results on a responsive UI.
 The system is engineered for:
@@ -11,9 +12,9 @@ The system is engineered for:
 - Extensibility (future mesh networking + ML scoring)
 At its core, WIFIBLE captures 802.11 frames, extracts metadata, classifies devices, assigns unique IDs, and logs or displays threat‑relevant events.
 
-Core Components
+# Core Components
 
-1. Wi‑Fi Packet Sniffer
+### 1. Wi‑Fi Packet Sniffer
 The Wi‑Fi subsystem runs in promiscuous mode and processes every captured frame:
 - Extracts MAC addresses, RSSI, channel, frame type/subtype
 - Tracks access points and clients separately
@@ -23,15 +24,15 @@ The Wi‑Fi subsystem runs in promiscuous mode and processes every captured fram
 - deauthentication floods
 - rapid probe bursts
 - abnormal RSSI swings
+- 
 Refactoring Achievements
-You’ve eliminated:
 - MAC assignment bugs
 - Device indexing mismatches
 - Vector copy heap corruption
 - Cross‑module visibility issues
 Each device is now represented by a stable canonical key, and all scoring/alert logic is tied to that key.
 
-2. BLE Sniffer (NimBLE)
+### 2. BLE Sniffer (NimBLE)
 Running in parallel with Wi‑Fi, the BLE subsystem:
 - Scans for BLE advertisements
 - Extracts MAC, RSSI, payload flags
@@ -40,7 +41,7 @@ Running in parallel with Wi‑Fi, the BLE subsystem:
 - Stores alerts per device, not in a global ring buffer
 BLE alert logic is now aligned with Wi‑Fi so both behave consistently.
 
-3. Unified Alert System
+### 3. Unified Alert System
 Both Wi‑Fi and BLE feed into a shared alert pipeline:
 - Alerts have severity: INFO, WARN, CRITICAL
 - Each alert stores:
@@ -53,8 +54,9 @@ Both Wi‑Fi and BLE feed into a shared alert pipeline:
 - Display and SD logging read from the same canonical structures
 This system has evolved from a simple ring buffer into a per‑device telemetry pipeline.
 
-4. Touchscreen UI (TFT_eSPI)
+### 4. Touchscreen UI (TFT_eSPI)
 The UI displays two main tables:
+
 Wi‑Fi Device Table
 - MAC (color‑coded by threat level)
 - Unique device ID
@@ -62,21 +64,22 @@ Wi‑Fi Device Table
 - RSSI
 - Score
 - Threat reasons
+  
 BLE Device Table
 - MAC
 - Unique BLE ID
 - RSSI
 - Score
 - Flags / reasons
+ 
 Stability Improvements
-You’ve hardened the UI against:
 - divide‑by‑zero timing bugs
 - SPI contention
 - vector copy crashes
 - inconsistent rendering
 Rendering now uses reference‑based access, eliminating heap corruption.
 
-5. CLI System
+### 5. CLI System
 A lightweight command‑line interface provides:
 - Diagnostics
 - Forcing alerts
@@ -90,7 +93,7 @@ Refactoring Goals
 - Improve HELP and STATUS output
 The CLI is becoming a proper developer console.
 
-6. SD Logging
+### 6. SD Logging
 The system logs:
 - Alerts
 - Device discoveries
@@ -102,7 +105,7 @@ Logging Guarantees
 - Non‑blocking writes
 - No heap fragmentation
 
-Design Philosophy
+#### Design Philosophy
 Reliability First
 Every subsystem is hardened against:
 - timing issues
@@ -122,9 +125,9 @@ The long‑term vision includes:
 - mesh‑based threat sharing
 - ML‑driven scoring
 - unified telemetry pipelines
-This is not a toy sniffer — it’s the foundation of a scalable RF security platform.
+This is not a toy sniffer — it’s the foundation of a scalable security platform.
 
-Current Focus Areas
+#### Current Focus Areas
 Recent development has centered on:
 - Fixing linker visibility issues (static vs non‑static functions)
 - Finalizing canonical device attribution
@@ -136,8 +139,8 @@ Recent development has centered on:
 The architecture is now solidifying into a robust, extensible system.
 
 License
-Choose your preferred license (MIT recommended).
+ GPL (General Public License) a
 
 Contributions
-PRs and feature suggestions are welcome.
+Actively looking for assistance to develop and maintain project, while feature suggestions are welcome.
 
