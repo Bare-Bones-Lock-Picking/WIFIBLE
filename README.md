@@ -2,17 +2,12 @@
 
 
 # WIFIBLE (pronounce - 'WHY-fih-bull')
-This project is a real‑time intelligence tool built on an ESP32 (CYD ESP32‑2432S028) that passively monitors Wi‑Fi and BLE activity, identifies devices, scores suspicious behavior, and presents the results on a touchscreen UI. Its also aimed to be available as 'headless' ESP32-C3
+WIFIBLE is a real‑time RF intelligence system built on the CYD ESP32‑2432S028 touchscreen board.
+It passively monitors Wi‑Fi and BLE activity, identifies devices, scores suspicious behavior, and presents results on a responsive UI. Its also aimed to be ported as a 'headless' (i.e no TFT screen) ESP32-C3 mini board.
 
 WIFIBLE — ESP32 Wi‑Fi + BLE RF Intelligence Platform
 
 # Overview
-WIFIBLE is a real‑time RF intelligence system built on the CYD ESP32‑2432S028 touchscreen board.
-It passively monitors Wi‑Fi and BLE activity, identifies devices, scores suspicious behavior, and presents results on a responsive UI.
-The system is engineered for:
-- Reliability (no crashes, no heap corruption)
-- Maintainability (modular, clean architecture)
-- Extensibility (future mesh networking + ML scoring)
 At its core, WIFIBLE captures 802.11 frames, extracts metadata, classifies devices, assigns unique IDs, and logs or displays threat‑relevant events.
 
 # Core Components
@@ -75,12 +70,6 @@ BLE Device Table
 - Score
 - Flags / reasons
  
-Stability Improvements
-- divide‑by‑zero timing bugs
-- SPI contention
-- vector copy crashes
-- inconsistent rendering
-Rendering now uses reference‑based access, eliminating heap corruption.
 
 ### 5. CLI System
 A lightweight command‑line interface provides:
@@ -89,6 +78,7 @@ A lightweight command‑line interface provides:
 - Resetting tables
 - Triggering test events
 - Dumping device lists
+- 
 Refactoring Goals
 - Use canonical device keys
 - Avoid cross‑file static linkage issues
@@ -102,6 +92,7 @@ The system logs:
 - Device discoveries
 - Suspicious events
 - System status
+- 
 Logging Guarantees
 - Consistent formatting
 - Correct timestamps
@@ -142,8 +133,8 @@ Recent development has centered on:
 The architecture is now solidifying into a robust, extensible system.
 
 License
- GPL (General Public License) a
+ GPL v3.0 (General Public License) 
 
 Contributions
-Actively looking for assistance to develop and maintain project, while feature suggestions are welcome.
+Actively looking for assistance to develop and maintain this project, while feature suggestions are welcome.
 
