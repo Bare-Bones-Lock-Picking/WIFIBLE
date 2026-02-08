@@ -57,17 +57,15 @@ avgRSSI,pktCount,beaconCount,probeCount,deauthCount,uniqueDevices,spoofEvents,an
 This dataset can be fed directly into Python, Edge Impulse, TensorFlow Lite, or a simple decision‑tree generator.
 
 ---
+## 🧪 How to Train Your TinyML Model
 
-## 🧪 Training a Tiny Model
+The sniffer can export a compact, per‑second feature vector over serial. Each row looks like:
 
-The recommended workflow:
-
-1. **Collect normal traffic** for 1–3 minutes  
-2. **Trigger an attack** (deauth, probe flood, beacon spam, etc.) for 20–40 seconds  
-3. **Return to normal traffic**  
-4. Repeat with different attack types  
-
-This produces a balanced dataset with clear transitions between normal and malicious behaviour.
+```text
+avgRSSI,pktCount,beaconCount,probeCount,deauthCount,uniqueDevices,spoofEvents,anomalyEvents,label
+-67.4,120,30,5,0,3,1,0,NORMAL
+-55.2,300,80,50,0,3,12,0,SPOOFING
+-70.1,140,40,10,5,4,2,0,DEAUTH
 
 ### Why This Works
 
