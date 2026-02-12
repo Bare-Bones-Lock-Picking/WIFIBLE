@@ -43,6 +43,23 @@ Each row represents one BLE ML window.
 
 Collect separate CSV files for each scenario:
 
+data/ble/
+    normal_home.csv
+    
+    normal_office.csv
+    
+    normal_outdoors.csv
+    
+    attack_spam.csv
+    
+    attack_mac_rotation.csv
+    
+    attack_impersonation.csv
+    
+    attack_beacon_storm.csv
+    
+    attack_connectable.csv
+
 
 Recommended:
 
