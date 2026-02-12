@@ -44,6 +44,7 @@ Each row represents one BLE ML window.
 Collect separate CSV files for each scenario:
 
 data/ble/
+
     normal_home.csv
     
     normal_office.csv
@@ -136,6 +137,7 @@ void loop() {
     }
 }
 
+** Save as ble_ml_train.py or convert to .ipynb
 
 
 import glob
