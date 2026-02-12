@@ -137,8 +137,9 @@ void loop() {
     }
 }
 
-** Save as ble_ml_train.py or convert to .ipynb
 
+
+* Python Training Script (ble_ml_train.py)
 
 import glob
 import pandas as pd
@@ -176,6 +177,10 @@ with open("artifacts/ble_features.txt", "w") as f:
     f.write("\n".join(feature_cols))
 
 
+
+* Model Evaluator
+
+
 import pandas as pd
 import numpy as np
 import joblib
@@ -198,4 +203,12 @@ def evaluate(csv_path):
 if __name__ == "__main__":
     evaluate("data/ble/all_ble.csv")
 
+
+
+* Deployment
+- Train the model with ble_ml_train.py.
+- Convert the decision tree to C (auto‑generated or hand‑translated).
+- Embed the model into ESP32 firmware.
+- Feed each BLE window into the model.
+- Act on the predicted label in real time.
 
